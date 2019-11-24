@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import jp.co.systena.tigerscave.rpg.model.CommandForm;
 import jp.co.systena.tigerscave.rpg.model.Job;
 import jp.co.systena.tigerscave.rpg.model.JobForm;
 import jp.co.systena.tigerscave.rpg.model.Monk;
@@ -72,6 +73,19 @@ public class RpgController {
 
     return mav;
   }
+  @RequestMapping(value = "/command", method = RequestMethod.POST) // URLとのマッピング
+  public ModelAndView commandResult(ModelAndView mav, @Valid CommandForm commandForm) {
+    Job job = (Job)session.getAttribute("character");
+    if(commandForm.getCommand().contentEquals("たたかう")) {
+      mav.addObject("battletext", job.attack(job.getName()));
+    }
+    else if(commandForm.getCommand().contentEquals("回復")) {
+      mav.addObject("battletext", job.heal(job.getName()));
+    }
+    mav.setViewName("battle");
+
+    return mav;
+  }
 
   @RequestMapping(value = "/battle", method = RequestMethod.GET)
   public ModelAndView battle(ModelAndView mav) {
@@ -82,5 +96,6 @@ public class RpgController {
 
     return mav;
   }
+
 
 }

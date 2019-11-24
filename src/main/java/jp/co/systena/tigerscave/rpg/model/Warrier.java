@@ -5,6 +5,10 @@ public class Warrier extends Job {
   public String attack(String name) {
     return name + "は剣で攻撃した";
   }
+  @Override
+  public String heal(String name) {
+    return name + "は薬草で回復した";
+  }
 
 
 }

@@ -27,4 +27,8 @@ public class Job {
   public String attack(String name) {
     return name;
   }
+  public String heal(String name) {
+    return name;
+  }
+
 }

@@ -9,6 +9,13 @@
     職業：<span class="name" th:text="${chara.job}"></span></br>
     名前：<span class="name" th:text="${chara.name}"></span>
   </th:block></br>
-  <button type=“button” onclick="location.href='/battle'">たたかう</button>
+  <form action="#" th:action="@{/command}" th:object="${commandForm}" method="post">
+  <input type="hidden" name="command" value="たたかう" />
+  <input type="submit" value="たたかう" />
+  </form>
+  <form action="#" th:action="@{/command}" th:object="${commandForm}" method="post">
+  <input type="hidden" name="command" value="回復" />
+  <input type="submit" value="回復" />
+  </form>
 </body>
 </html>
