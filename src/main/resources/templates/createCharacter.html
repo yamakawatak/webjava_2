@@ -7,8 +7,8 @@
 <body>
   <span>キャラ作成</span>
   <form action="#" th:action="@{/create}" th:object="${jobForm}" method="post">
-  職業：<input type="radio" name="job" value="true">戦士
-  <input type="radio" name="job" value="false">魔法使い</br>
+  職業：<input type="radio" name="job" value="戦士">戦士
+  <input type="radio" name="job" value="魔法使い">魔法使い
   名前：<input type="text" name="name" value="" />
   <input type="submit" value="次へ" />
   </form>

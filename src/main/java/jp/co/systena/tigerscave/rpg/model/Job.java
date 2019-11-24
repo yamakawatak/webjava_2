@@ -3,6 +3,7 @@ package jp.co.systena.tigerscave.rpg.model;
 public class Job {
   private String name;
   private int hp;
+  private String job;
 
   public String getName() {
     return this.name;
@@ -16,8 +17,14 @@ public class Job {
   public void setHp(int hp) {
     this.hp = hp;
   }
+  public String getJob() {
+    return job;
+  }
+  public void setJob(String job) {
+    this.job = job;
+  }
 
-  public void attack() {
-
+  public String attack(String name) {
+    return name;
   }
 }
