@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import jp.co.systena.tigerscave.rpg.model.Job;
 import jp.co.systena.tigerscave.rpg.model.JobForm;
+import jp.co.systena.tigerscave.rpg.model.Monk;
 import jp.co.systena.tigerscave.rpg.model.Warrier;
 import jp.co.systena.tigerscave.rpg.model.Wizard;
 
@@ -47,6 +48,14 @@ public class RpgController {
       mav.addObject("chara",chara);
       session.setAttribute("character", chara);
     }
+    else if(jobForm.getJob().contentEquals("武闘家")) {
+      Monk chara = new Monk();
+      chara.setJob(jobForm.getJob());
+      chara.setHp(100);
+      chara.setName(jobForm.getName());
+      mav.addObject("chara",chara);
+      session.setAttribute("character", chara);
+    }
 
 
 
@@ -68,7 +77,6 @@ public class RpgController {
   public ModelAndView battle(ModelAndView mav) {
 
     Job job = (Job)session.getAttribute("character");
-//    String str = job.attack(job.getName());
     mav.addObject("battletext", job.attack(job.getName()));
     mav.setViewName("battle");
 
