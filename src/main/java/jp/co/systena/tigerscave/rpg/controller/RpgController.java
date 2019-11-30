@@ -1,5 +1,7 @@
 package jp.co.systena.tigerscave.rpg.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,75 +29,69 @@ public class RpgController {
     return mav;
   }
 
-  @RequestMapping(value = "/create", method = RequestMethod.POST) // URLとのマッピング
-  public ModelAndView selectJob(ModelAndView mav, @Valid JobForm jobForm) {
-
-//    Chara create = (Chara) session.getAttribute("jobForm");//job,name
-    //session.getAttribute("jobForm");
-    String job =jobForm.getJob();
-    if(jobForm.getJob().contentEquals("戦士")) {
-      Warrier chara = new Warrier();
-      chara.setJob(jobForm.getJob());
-      chara.setHp(100);
-      chara.setName(jobForm.getName());
-      mav.addObject("chara",chara);
-      session.setAttribute("character", chara);
-    }
-    else if(jobForm.getJob().contentEquals("魔法使い")) {
-      Wizard chara = new Wizard();
-      chara.setJob(jobForm.getJob());
-      chara.setHp(100);
-      chara.setName(jobForm.getName());
-      mav.addObject("chara",chara);
-      session.setAttribute("character", chara);
-    }
-    else if(jobForm.getJob().contentEquals("武闘家")) {
-      Monk chara = new Monk();
-      chara.setJob(jobForm.getJob());
-      chara.setHp(100);
-      chara.setName(jobForm.getName());
-      mav.addObject("chara",chara);
-      session.setAttribute("character", chara);
-    }
-
-
-
-
-    mav.setViewName("command");
-
-    return mav;
-  }
-
-  @RequestMapping(value = "/command", method = RequestMethod.GET)
-  public ModelAndView command(ModelAndView mav) {
-
-    mav.setViewName("command");
-
-    return mav;
-  }
   @RequestMapping(value = "/command", method = RequestMethod.POST) // URLとのマッピング
-  public ModelAndView commandResult(ModelAndView mav, @Valid CommandForm commandForm) {
-    Job job = (Job)session.getAttribute("character");
-    if(commandForm.getCommand().contentEquals("たたかう")) {
-      mav.addObject("battletext", job.attack(job.getName()));
+  public ModelAndView command(ModelAndView mav, @Valid JobForm jobForm) {
+    ArrayList<Job> character = new ArrayList<Job>();
+
+    System.out.print(jobForm);
+    List<Job> getForm = jobForm.getJob();
+    for (int i = 0; i < getForm.size(); i++) {
+      if(getForm.get(i).getJob().contentEquals("戦士")) {
+        Warrier chara = new Warrier();
+        chara.setJob(getForm.get(i).getJob());
+        chara.setHp(100);
+        chara.setName(getForm.get(i).getName());
+        character.add(chara);
+      }
+      else if(getForm.get(i).getJob().contentEquals("魔法使い")) {
+        Wizard chara = new Wizard();
+        chara.setJob(getForm.get(i).getJob());
+        chara.setHp(100);
+        chara.setName(getForm.get(i).getName());
+        character.add(chara);
+
+      }
+      else if(getForm.get(i).getJob().contentEquals("武闘家")) {
+        Monk chara = new Monk();
+        chara.setJob(getForm.get(i).getJob());
+        chara.setHp(100);
+        chara.setName(getForm.get(i).getName());
+        character.add(chara);
+
+      }
+      mav.addObject("character",character);
+      session.setAttribute("character", character);
     }
-    else if(commandForm.getCommand().contentEquals("回復")) {
-      mav.addObject("battletext", job.heal(job.getName()));
+
+
+    mav.setViewName("command");
+
+    return mav;
+  }
+
+
+  @RequestMapping(value = "/battle", method = RequestMethod.POST) // URLとのマッピング
+  public ModelAndView battle(ModelAndView mav, @Valid CommandForm commandForm) {
+    List<Job> jobList = (List<Job>) session.getAttribute("character");
+    List<String> commandList = commandForm.getCommandList();
+    List<String> battleText = new ArrayList<String>();
+
+    for (int i = 0; i < jobList.size(); i++) {
+      if((commandForm.getCommand(i)).contentEquals("たたかう")) {
+        battleText.add(jobList.get(i).attack(jobList.get(i).getName()));
+      }
+      else if((commandForm.getCommand(i)).contentEquals("かいふく")) {
+        battleText.add(jobList.get(i).heal(jobList.get(i).getName()));
+      }
     }
+
+    mav.addObject("battletext", battleText);
     mav.setViewName("battle");
 
     return mav;
   }
 
-  @RequestMapping(value = "/battle", method = RequestMethod.GET)
-  public ModelAndView battle(ModelAndView mav) {
 
-    Job job = (Job)session.getAttribute("character");
-    mav.addObject("battletext", job.attack(job.getName()));
-    mav.setViewName("battle");
-
-    return mav;
-  }
 
 
 }

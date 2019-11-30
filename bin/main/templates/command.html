@@ -5,15 +5,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <th:block>
-    職業：<span class="name" th:text="${chara.job}"></span></br>
-    名前：<span class="name" th:text="${chara.name}"></span>
+  <form action="#" th:action="@{/battle}" th:object="${commandForm}" method="post">
+  <th:block th:each="character,stat : ${character}">
+    職業：<span class="name" th:text="${character.job}"></span></br>
+    名前：<span class="name" th:text="${character.name}"></span></br>
+    <select th:name="'commandList[' + ${stat.index} + ']'">
+<option value="たたかう">たたかう</option>
+<option value="かいふく">かいふく</option>
+</select></br>
   </th:block></br>
-  <form action="#" th:action="@{/command}" th:object="${commandForm}" method="post">
+  <input type="submit" value="次へ" />
+</form>
+  <form action="#" th:action="@{/battle}" th:object="${commandForm}" method="post">
   <input type="hidden" name="command" value="たたかう" />
   <input type="submit" value="たたかう" />
   </form>
-  <form action="#" th:action="@{/command}" th:object="${commandForm}" method="post">
+  <form action="#" th:action="@{/battle}" th:object="${commandForm}" method="post">
   <input type="hidden" name="command" value="回復" />
   <input type="submit" value="回復" />
   </form>

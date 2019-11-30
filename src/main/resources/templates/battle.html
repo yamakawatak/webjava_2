@@ -5,8 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <th:block>
-    <span class="name" th:text="${battletext}"></span>
+  <th:block th:each="text,stat : ${battletext}">
+    <span class="name" th:text="${text}"></span></br>
   </th:block>
 </body>
 </html>

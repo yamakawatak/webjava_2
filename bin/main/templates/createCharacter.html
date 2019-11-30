@@ -6,12 +6,20 @@
 </head>
 <body>
   <span>キャラ作成</span>
-  <form action="#" th:action="@{/create}" th:object="${jobForm}" method="post">
-  職業：<input type="radio" name="job" value="戦士">戦士
-  <input type="radio" name="job" value="魔法使い">魔法使い
-  <input type="radio" name="job" value="武闘家">武闘家
+  <form action="#" th:action="@{/command}" th:object="${jobForm}" method="post">
+  <span>キャラクター1</span></br>
+  職業：<input type="radio" name="job[0].job" value="戦士">戦士
+  <input type="radio" name="job[0].job" value="魔法使い">魔法使い
+  <input type="radio" name="job[0].job" value="武闘家">武闘家
   </br>
-  名前：<input type="text" name="name" value="" />
+  名前：<input type="text" name="job[0].name" value="" />
+  </br>
+  <span>キャラクター2</span></br>
+  職業：<input type="radio" name="job[1].job" value="戦士">戦士
+  <input type="radio" name="job[1].job" value="魔法使い">魔法使い
+  <input type="radio" name="job[1].job" value="武闘家">武闘家
+  </br>
+  名前：<input type="text" name="job[1].name" value="" /></br>
   <input type="submit" value="次へ" />
   </form>
 </body>
