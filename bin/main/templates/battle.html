@@ -8,7 +8,7 @@
   <th:block th:each="text,stat : ${battletext}">
     <span class="name" th:text="${text}"></span></br>
   </th:block>
-  <th:span th:text="'敵のHP: ' + ${enemystat}" ></th:span>
+  <th:span th:text="'敵のHP: ' + ${enemystat}" ></th:span></br>
   <input type="button" onclick="location.href='./command'" value="次へ" />
 </body>
 </html>

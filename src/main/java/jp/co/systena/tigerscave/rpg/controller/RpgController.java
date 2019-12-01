@@ -107,7 +107,6 @@ public class RpgController {
   public ModelAndView command(ModelAndView mav) {
     List<Job> character = (List<Job>) session.getAttribute("character");
     mav.addObject("character",character);
-//    session.setAttribute("character", character);
     mav.setViewName("command");
 
     return mav;
