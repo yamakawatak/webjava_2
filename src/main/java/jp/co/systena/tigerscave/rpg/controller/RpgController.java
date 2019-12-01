@@ -36,28 +36,30 @@ public class RpgController {
     System.out.print(jobForm);
     List<Job> getForm = jobForm.getJob();
     for (int i = 0; i < getForm.size(); i++) {
-      if(getForm.get(i).getJob().contentEquals("戦士")) {
-        Warrier chara = new Warrier();
-        chara.setJob(getForm.get(i).getJob());
-        chara.setHp(100);
-        chara.setName(getForm.get(i).getName());
-        character.add(chara);
-      }
-      else if(getForm.get(i).getJob().contentEquals("魔法使い")) {
-        Wizard chara = new Wizard();
-        chara.setJob(getForm.get(i).getJob());
-        chara.setHp(100);
-        chara.setName(getForm.get(i).getName());
-        character.add(chara);
+      if(!getForm.get(i).getName().isEmpty()) {
+        if(getForm.get(i).getJob().contentEquals("戦士")) {
+          Warrier chara = new Warrier();
+          chara.setJob(getForm.get(i).getJob());
+          chara.setHp(100);
+          chara.setName(getForm.get(i).getName());
+          character.add(chara);
+        }
+        else if(getForm.get(i).getJob().contentEquals("魔法使い")) {
+          Wizard chara = new Wizard();
+          chara.setJob(getForm.get(i).getJob());
+          chara.setHp(100);
+          chara.setName(getForm.get(i).getName());
+          character.add(chara);
 
-      }
-      else if(getForm.get(i).getJob().contentEquals("武闘家")) {
-        Monk chara = new Monk();
-        chara.setJob(getForm.get(i).getJob());
-        chara.setHp(100);
-        chara.setName(getForm.get(i).getName());
-        character.add(chara);
+        }
+        else if(getForm.get(i).getJob().contentEquals("武闘家")) {
+          Monk chara = new Monk();
+          chara.setJob(getForm.get(i).getJob());
+          chara.setHp(100);
+          chara.setName(getForm.get(i).getName());
+          character.add(chara);
 
+        }
       }
       mav.addObject("character",character);
       session.setAttribute("character", character);
