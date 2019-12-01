@@ -78,22 +78,40 @@ public class RpgController {
     List<String> commandList = commandForm.getCommandList();
     List<String> battleText = new ArrayList<String>();
 
+    int enemyHp = 100;
+    if(session.getAttribute("enemyhp") != null) {
+      enemyHp = (int) session.getAttribute("enemyhp");
+    }
+
     for (int i = 0; i < jobList.size(); i++) {
       if((commandForm.getCommand(i)).contentEquals("たたかう")) {
         battleText.add(jobList.get(i).attack(jobList.get(i).getName()));
+        enemyHp = enemyHp - 10;
       }
       else if((commandForm.getCommand(i)).contentEquals("かいふく")) {
         battleText.add(jobList.get(i).heal(jobList.get(i).getName()));
       }
     }
 
+    String enemyText = String.valueOf(enemyHp);
+
+    session.setAttribute("enemyhp", enemyHp);
+    mav.addObject("enemystat", enemyText);
     mav.addObject("battletext", battleText);
     mav.setViewName("battle");
 
     return mav;
   }
 
+  @RequestMapping(value = "/command", method = RequestMethod.GET)
+  public ModelAndView command(ModelAndView mav) {
+    List<Job> character = (List<Job>) session.getAttribute("character");
+    mav.addObject("character",character);
+//    session.setAttribute("character", character);
+    mav.setViewName("command");
 
+    return mav;
+  }
 
 
 }
