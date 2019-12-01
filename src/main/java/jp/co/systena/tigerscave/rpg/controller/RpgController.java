@@ -93,6 +93,10 @@ public class RpgController {
       }
     }
 
+    if(enemyHp <= 0) {
+      return new ModelAndView("redirect:gameend");
+    }
+
     String enemyText = String.valueOf(enemyHp);
 
     session.setAttribute("enemyhp", enemyHp);
@@ -112,5 +116,10 @@ public class RpgController {
     return mav;
   }
 
+  @RequestMapping(value = "/gameend", method = RequestMethod.GET)
+  public ModelAndView gameend(ModelAndView mav) {
+    mav.setViewName("gameend");
+    return mav;
+  }
 
 }
